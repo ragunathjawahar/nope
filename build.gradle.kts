@@ -18,4 +18,6 @@ dependencies {
 
   implementation("org.openjdk.jmh:jmh-core:1.28")
   kapt("org.openjdk.jmh:jmh-generator-annprocess:1.28")
+
+  implementation("com.google.truth:truth:1.1.3")
 }
