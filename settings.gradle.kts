@@ -1,4 +1,5 @@
 rootProject.name = "nope"
 include(
-  ":hypothesis"
+  ":hypothesis",
+  ":nope"
 )

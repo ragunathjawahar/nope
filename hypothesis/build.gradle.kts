@@ -9,6 +9,7 @@ application {
 }
 
 dependencies {
+  implementation(project(":nope"))
   implementation(kotlin("stdlib"))
 
   implementation("org.openjdk.jmh:jmh-core:1.32")
