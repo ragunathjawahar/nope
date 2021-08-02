@@ -14,7 +14,7 @@ open class ReturnValues {
     return if (state.isTrue) {
       Passed("failingTest")
     } else {
-      Failed("failingTest", "1 is not equal to 2")
+      Failed("failingTest", "expected to be true, but was false")
     }
   }
 }

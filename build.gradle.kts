@@ -1,21 +1,40 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+
+  dependencies {
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.2")
+  }
+}
+
 plugins {
-  kotlin("jvm") version "1.5.21"
-  kotlin("kapt") version "1.5.21"
+  kotlin("jvm") version "1.5.21" apply false
+  kotlin("kapt") version "1.5.21" apply false
 }
 
-group = "xyz.ragunath"
-version = "0.1.0-SNAPSHOT"
+allprojects {
+  group = "xyz.ragunath"
+  version = "0.1.0-SNAPSHOT"
 
-repositories {
-  mavenCentral()
+  tasks.withType<JavaCompile> {
+    sourceCompatibility = "1.8"
+    targetCompatibility = "1.8"
+  }
+
+  tasks.withType<KotlinCompile> {
+    kotlinOptions {
+      freeCompilerArgs = listOf("-Xjsr305=strict")
+      jvmTarget = "1.8"
+    }
+  }
 }
 
-dependencies {
-  implementation(kotlin("stdlib"))
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
-
-  implementation("org.openjdk.jmh:jmh-core:1.32")
-  kapt("org.openjdk.jmh:jmh-generator-annprocess:1.32")
-
-  implementation("com.google.truth:truth:1.1.3")
+subprojects {
+  repositories {
+    mavenCentral()
+  }
 }
