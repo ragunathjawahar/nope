@@ -10,12 +10,8 @@ import xyz.ragunath.nope.TestResult.Passed
 open class ReturnValues {
   @Benchmark
   @BenchmarkMode(Throughput)
-  fun init() {
-    failingTest()
-  }
-
-  private fun failingTest(): TestResult {
-    return if (false) {
+  fun returnValueTest(state: BenchmarkState): TestResult {
+    return if (state.isTrue) {
       Passed("failingTest")
     } else {
       Failed("failingTest", "1 is not equal to 2")

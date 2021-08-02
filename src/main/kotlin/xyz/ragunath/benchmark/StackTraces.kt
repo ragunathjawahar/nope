@@ -8,16 +8,12 @@ import org.openjdk.jmh.annotations.Mode.Throughput
 open class StackTraces {
   @Benchmark
   @BenchmarkMode(Throughput)
-  fun init() {
+  fun stackTraceTest(state: BenchmarkState) {
     try {
-      failingTest()
+      assertThat(state.isTrue)
+        .isTrue()
     } catch (e: AssertionError) {
       // gulp! swallow 😋
     }
-  }
-
-  private fun failingTest() {
-    assertThat(false)
-      .isTrue()
   }
 }
