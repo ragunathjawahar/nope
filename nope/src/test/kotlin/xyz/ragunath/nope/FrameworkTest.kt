@@ -2,6 +2,7 @@ package xyz.ragunath.nope
 
 import com.google.common.truth.Truth.assertThat
 import fixtures.Foo
+import fixtures.InvalidTestsTakingInParameters
 import fixtures.MoreNopeTests
 import fixtures.NopeCanaryTest
 import org.junit.jupiter.api.Nested
@@ -43,6 +44,22 @@ class FrameworkTest {
           "test1",
           "test2",
           "test3",
+        )
+    }
+  }
+
+  @Nested
+  inner class Validation {
+    @Test
+    fun `test functions with parameters are invalid`() {
+      // given & when
+      val validatedTests = validate(getTestFunctions(InvalidTestsTakingInParameters::class))
+
+      // then
+      assertThat(validatedTests)
+        .containsExactly(
+          InvalidTest("test1(kotlin.String)"),
+          InvalidTest("test2(kotlin.Int, kotlin.Int)"),
         )
     }
   }
