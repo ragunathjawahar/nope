@@ -1,7 +1,12 @@
 package xyz.ragunath.nope
 
 import kotlin.reflect.KClass
+import kotlin.reflect.KParameter
 import kotlin.reflect.full.findAnnotation
+
+private const val COMMA = ", "
+private const val LPAR = "("
+private const val RPAR = ")"
 
 internal fun getTestFunctions(
   testClass: KClass<*>
@@ -23,7 +28,15 @@ internal fun validate(
 private fun getSignature(testFunction: NopeTestFunction): String {
   val callable = testFunction.callable!!
   val functionName = callable.name
-  val parametersList = callable.parameters.drop(1).map { it.type }
-    .joinToString(", ", prefix = "(", postfix = ")")
+  val parametersList = getParameters(callable.parameters)
   return "$functionName$parametersList"
+}
+
+private fun getParameters(
+  parameters: List<KParameter>
+): String {
+  return parameters
+    .drop(1)
+    .map { it.type }
+    .joinToString(COMMA, prefix = LPAR, postfix = RPAR)
 }
